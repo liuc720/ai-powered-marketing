@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filial Project — Case Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #fafafa;
+            --mint: #d4e8e4;
+            --mint-dark: #a8c7be;
+            --gray: #8a8a8a;
+            --silver: #c0c0c0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Grain overlay effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,.03) 2px, rgba(255,255,255,.03) 4px);
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.4;
+            animation: grain 8s steps(10) infinite;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0) }
+            10% { transform: translate(-5%, -5%) }
+            20% { transform: translate(-10%, 5%) }
+            30% { transform: translate(5%, -10%) }
+            40% { transform: translate(-5%, 15%) }
+            50% { transform: translate(-10%, 5%) }
+            60% { transform: translate(15%, 0%) }
+            70% { transform: translate(0%, 10%) }
+            80% { transform: translate(-15%, 0%) }
+            90% { transform: translate(10%, 5%) }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--mint) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-subtitle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: clamp(0.75rem, 2vw, 1rem);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .hero-coordinates {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--mint-dark);
+            letter-spacing: 0.1em;
+            animation: fadeInUp 1.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Water ripple background */
+        .water-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(212, 232, 228, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 232, 228, 0.1) 0%, transparent 50%);
+            animation: ripple 15s ease-in-out infinite;
+        }
+
+        @keyframes ripple {
+            0%, 100% { 
+                transform: scale(1) translate(0, 0);
+            }
+            50% { 
+                transform: scale(1.1) translate(20px, -20px);
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--mint-dark);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section */
+        section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .section-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--mint-dark);
+            letter-spacing: 0.3em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Brand Story Section */
+        .brand-story {
+            background: linear-gradient(180deg, var(--black) 0%, #0f0f0f 100%);
+        }
+
+        .brand-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .brand-image {
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .brand-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(0.3) contrast(1.1);
+            transition: filter 0.6s ease;
+        }
+
+        .brand-image:hover img {
+            filter: grayscale(0) contrast(1.2);
+        }
+
+        .brand-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--mint);
+        }
+
+        .brand-info p {
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .brand-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .brand-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--gray);
+        }
+
+        .brand-list li strong {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        /* Campaign Sections */
+        .campaign {
+            background: var(--black);
+        }
+
+        .campaign:nth-child(even) {
+            background: #0a0a0a;
+        }
+
+        .campaign-header {
+            margin-bottom: 4rem;
+        }
+
+        .campaign-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--mint);
+            margin: 1rem 0 2rem;
+        }
+
+        .campaign-description {
+            max-width: 800px;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .campaign-details {
+            margin: 3rem 0;
+        }
+
+        .campaign-details h4 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--mint-dark);
+            margin-bottom: 1rem;
+        }
+
+        .campaign-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .campaign-details li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--gray);
+        }
+
+        .campaign-details li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--mint-dark);
+        }
+
+        /* Photo Grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .photo-grid-item {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            aspect-ratio: 3/4;
+        }
+
+        .photo-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.2) contrast(1.15);
+            transition: transform 0.6s ease, filter 0.6s ease;
+        }
+
+        .photo-grid-item:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0) contrast(1.2);
+        }
+
+        /* Featured large image */
+        .photo-grid-item.featured {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        /* Visual Identity Section */
+        .visual-identity {
+            background: var(--mint);
+            color: var(--black);
+        }
+
+        .visual-identity .section-title,
+        .visual-identity .section-number {
+            color: var(--black);
+        }
+
+        .identity-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .identity-item {
+            background: var(--white);
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .identity-item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Mood Board */
+        .mood-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 4rem;
+        }
+
+        .mood-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mood-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.5) contrast(1.1);
+            transition: all 0.6s ease;
+        }
+
+        .mood-item:hover img {
+            filter: grayscale(0) contrast(1.2);
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--mint);
+        }
+
+        .footer-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gray);
+            letter-spacing: 0.1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .brand-grid,
+            .identity-showcase {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .photo-grid-item.featured {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .mood-board {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 5rem 0;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .photo-grid,
+            .mood-board {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-logo {
+                font-size: 3rem;
+            }
+        }
+
+        /* Custom animations for scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Back to Home Button */
+        .back-home {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--black);
+            text-decoration: none;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .back-home:hover {
+            background: var(--mint);
+            border-color: var(--black);
+            transform: translateX(-4px);
+        }
+
+        .back-home svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .back-home {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            .back-home span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to Home Button -->
+    <a href="../../index.html" class="back-home" title="Back to Home">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M15 10H5M5 10l4 4M5 10l4-4"/>
+        </svg>
+        <span>Back</span>
+    </a>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="water-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-logo">Filial Project</h1>
+            <p class="hero-subtitle">New Vintage Aesthetic</p>
+            <p class="hero-coordinates">40.7128° N, 74.0060° W</p>
+        </div>
+        <div class="scroll-indicator">SCROLL ↓</div>
+    </section>
+
+    <!-- Brand Story -->
+    <section class="brand-story">
+        <div class="container">
+            <div class="section-number">01</div>
+            <h2 class="section-title">Brand Story</h2>
+            
+            <div class="brand-grid reveal">
+                <div class="brand-image">
+                    <img src="images/overview.jpg" alt="Filial Project Overview">
+                </div>
+                <div class="brand-info">
+                    <h3>Background</h3>
+                    <p>Inspired by a film about entrepreneurship and founded by a Parsons student and NYU student, Filial Project emerged from a desire to blend cultural heritage with contemporary fashion.</p>
+                    
+                    <h3>Concept</h3>
+                    <p>The name "Filial" reflects the Thai value of filial piety—love and gratitude for family. The brand seamlessly blends cultural roots with modern design, creating fashion that is timeless, personal, and inclusive.</p>
+                    
+                    <h3>Style & Vision</h3>
+                    <ul class="brand-list">
+                        <li><strong>Aesthetic:</strong> "New Vintage" — nostalgic yet contemporary</li>
+                        <li><strong>Materials:</strong> Reused and sustainable fabrics</li>
+                        <li><strong>Philosophy:</strong> Fashion for everyone</li>
+                        <li><strong>Origin:</strong> Produced in Thailand with textured sleeve details</li>
+                        <li><strong>Detail:</strong> Decorated with vintage buttons handpicked by NYU co-founder</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Campaign 1 -->
+    <section class="campaign">
+        <div class="container">
+            <div class="section-number">02</div>
+            <h2 class="section-title">Campaign One</h2>
+            
+            <div class="campaign-header reveal">
+                <p class="campaign-tagline">"Stay exactly the way you are."</p>
+                <div class="campaign-description">
+                    <h3 style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mint-dark); margin-bottom: 2rem;">REAL POSTURE ONLY</h3>
+                    <p>You don't need to turn yourself into a lookbook to deserve the clothes. The messiest, loosest, most un-posed version of you is exactly who this piece is made for.</p>
+                </div>
+
+                <div class="campaign-details">
+                    <h4>What We Want People to Feel</h4>
+                    <ul>
+                        <li>Anyone can wear it</li>
+                        <li>Your body doesn't need to be "fixed" or edited to be allowed in the picture</li>
+                        <li>This brand is on the side of ordinary, tired, introverted, socially anxious people</li>
+                    </ul>
+
+                    <h4 style="margin-top: 2rem;">Shot Examples: Your Most Real Postures</h4>
+                    <ul>
+                        <li>Curled up on the couch scrolling on your phone</li>
+                        <li>Sitting on the floor eating takeout</li>
+                        <li>Sleeping crooked on the bus or subway</li>
+                        <li>Slumped over a desk rushing a deadline</li>
+                        <li>Barefoot, sitting cross-legged on a chair</li>
+                    </ul>
+
+                    <h4 style="margin-top: 2rem;">We Emphasize</h4>
+                    <ul>
+                        <li>You don't have to show your face</li>
+                        <li>You don't have to hold in your stomach</li>
+                        <li>You don't have to clean your room first</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="photo-grid reveal">
+                <div class="photo-grid-item featured">
+                    <img src="images/campaign1.JPG" alt="Campaign 1">
+                </div>
+                <div class="photo-grid-item">
+                    <img src="images/campaign2.JPG" alt="Campaign 2">
+                </div>
+                <div class="photo-grid-item">
+                    <img src="images/campaign4.JPG" alt="Campaign 4">
+                </div>
+                <div class="photo-grid-item">
+                    <img src="images/campaign5.JPG" alt="Campaign 5">
+                </div>
+                <div class="photo-grid-item">
+                    <img src="images/campaign6.JPG" alt="Campaign 6">
+                </div>
+                <div class="photo-grid-item">
+                    <img src="images/campaign3.JPG" alt="Campaign 3">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Campaign 2 -->
+    <section class="campaign">
+        <div class="container">
+            <div class="section-number">03</div>
+            <h2 class="section-title">Campaign Two</h2>
+            
+            <div class="campaign-header reveal">
+                <p class="campaign-tagline">"I know you're watching, so I'll give you this punch to look at."</p>
+                <div class="campaign-description">
+                    <h3 style="font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mint-dark); margin-bottom: 2rem;">BUTTON WATCHING, BUTTON PUNCHING</h3>
+                    <p>New York is full of little eyes watching you—cameras, strangers' stares, stereotypes—but you get to punch back in a playful way, and the silver buttons become the perfect excuse to do it on camera.</p>
+                </div>
+
+                <div class="campaign-details">
+                    <h4>Overall Mood</h4>
+                    <ul>
+                        <li>DV cam texture, street-level, light grain</li>
+                        <li>Playful, not afraid of the lens, slightly cheeky and provocative</li>
+                        <li>Not angry protest, more like: "I know you're watching, so I'll give you this punch to look at."</li>
+                    </ul>
+
+                    <h4 style="margin-top: 2rem;">The Silver Button Plays Two Roles</h4>
+                    <ul>
+                        <li><strong>Little eye:</strong> Stuck onto CCTV poles, utility boxes, walls, acting like tiny watching eyes</li>
+                        <li><strong>Punch target:</strong> When someone throws a punch, the button sits right in front of the fist like a target, but the fist stops just short of hitting anything, hanging in mid-air</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="photo-grid reveal">
+                <div class="photo-grid-item">
+                    <img src="images/campaign7.JPG" alt="Campaign 7">
+                </div>
+                <div class="photo-grid-item featured">
+                    <img src="images/campaign8.JPG" alt="Campaign 8">
+                </div>
+                <div class="photo-grid-item">
+                    <img src="images/campaign9.JPG" alt="Campaign 9">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Identity -->
+    <section class="visual-identity">
+        <div class="container">
+            <div class="section-number">04</div>
+            <h2 class="section-title">Visual Identity</h2>
+
+            <div class="identity-showcase reveal">
+                <div class="identity-item">
+                    <img src="images/visual_3.jpg" alt="Logo Design">
+                </div>
+                <div class="identity-item">
+                    <img src="images/visual_2.jpg" alt="Typography">
+                </div>
+                <div class="identity-item">
+                    <img src="images/visual_5.jpg" alt="Coordinates">
+                </div>
+                <div class="identity-item">
+                    <img src="images/visual1.jpg" alt="Brand Elements">
+                </div>
+            </div>
+
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin: 5rem 0 2rem; color: var(--black);">Mood Board</h3>
+            <div class="mood-board reveal">
+                <div class="mood-item">
+                    <img src="images/mood1.jpg" alt="Mood 1">
+                </div>
+                <div class="mood-item">
+                    <img src="images/mood2.jpg" alt="Mood 2">
+                </div>
+                <div class="mood-item">
+                    <img src="images/mood3.jpg" alt="Mood 3">
+                </div>
+                <div class="mood-item">
+                    <img src="images/mood4.png" alt="Mood 4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">Filial Project</div>
+            <p class="footer-text">NEW VINTAGE AESTHETIC — EST. NYC</p>
+            <p class="footer-text" style="margin-top: 1rem; opacity: 0.5;">40.7128° N, 74.0060° W</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll reveal animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+        reveal(); // Initial check
+    </script>
+</body>
+</html>
